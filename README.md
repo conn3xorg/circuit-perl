@@ -19,7 +19,7 @@ If you need one Perl version everywhere, this isn't the circuit for it. Distro m
 
 ```hcl
 module "perl" {
-  source = "github.com/conn3xorg/circuit-perl?ref=v0.1.1"
+  source = "github.com/conn3xorg/circuit-perl?ref=v0.2.0"
 
   hosts                = { app1 = "203.0.113.10", app2 = "203.0.113.11" }
   ssh_private_key_file = "~/.ssh/id_ed25519"
@@ -34,7 +34,7 @@ module "perl" {
 
 Then run `conn3x init` and `conn3x apply`. A second `conn3x plan` says `No changes.`
 
-`distro_modules` takes package names, one list for each family, because the two families name the same module differently. `debian` covers Debian and Ubuntu; `redhat` covers Fedora, Rocky Linux, AlmaLinux, RHEL and CentOS Stream. On Rocky Linux and the like, some modules are only in EPEL, which this circuit doesn't add.
+`distro_modules` takes package names, one list for each family, because the two families name the same module differently. `debian` covers Debian and Ubuntu; `redhat` covers Fedora, Rocky Linux, AlmaLinux and RHEL. On Rocky Linux and the like, some modules are only in EPEL, which this circuit doesn't add.
 
 For hosts created in the same plan, pass host objects with the host key you generated, so Conn3x checks it without a known_hosts entry. Give each one's distribution in `os` too: the circuit picks packages by distribution, and Conn3x can't ask a host that doesn't exist yet. If `os` turns out not to match the host, Conn3x stops before configuring it. Set `os` as well when you put `depends_on` on this module: `depends_on` holds back reading the hosts until the apply, so without `os` the plan fails with `Invalid for_each argument`.
 
